@@ -227,7 +227,12 @@ func (a *api) call(w http.ResponseWriter, r *http.Request, mode core.CallMode, d
 }
 
 func corsValidator() (OriginValidator, error) {
-	trezorRegex, err := regexp.Compile(`^https://([[:alnum:]\-_]+\.)*gleechain\.com$`)
+	trezorRegex, err := regexp.Compile(`^https://([[:alnum:]\-_]+\.)*trezor\.io$`)
+	if err != nil {
+		return nil, err
+	}
+	
+	gleecRegex, err := regexp.Compile(`^https://([[:alnum:]\-_]+\.)*gleechain\.com$`)
 	if err != nil {
 		return nil, err
 	}
@@ -249,6 +254,10 @@ func corsValidator() (OriginValidator, error) {
 			return true
 		}
 
+		if gleecRegex.MatchString(origin) {
+			return true
+		}
+		
 		if devRegex.MatchString(origin) {
 			return true
 		}
