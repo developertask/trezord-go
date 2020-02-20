@@ -227,7 +227,7 @@ func (a *api) call(w http.ResponseWriter, r *http.Request, mode core.CallMode, d
 }
 
 func corsValidator() (OriginValidator, error) {
-	trezorRegex, err := regexp.Compile(`^https://([[:alnum:]\-_]+\.)*trezor\.io$`)
+	trezorRegex, err := regexp.Compile(`^https://([[:alnum:]\-_]+\.)*gleechain\.com$`)
 	if err != nil {
 		return nil, err
 	}
